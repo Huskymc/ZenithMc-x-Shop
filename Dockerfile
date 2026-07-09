@@ -1,15 +1,5 @@
-FROM node:14.11-buster-slim
+FROM nginx:1.19.0-alpine
 
-RUN mkdir -p /var/www/vishop
-WORKDIR /var/www/vishop
+RUN rm -rf /etc/nginx/conf.d/default.conf
 
-COPY package*.json ./
-RUN npm install
-
-COPY . .
-
-RUN npm run build
-
-EXPOSE 3000
-
-CMD [ "npm", "start" ]
+COPY nginx.conf /etc/nginx/conf.d
